@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Equipe;
 use Illuminate\Http\Request;
+
 
 class EquipeController extends Controller
 {
@@ -13,7 +14,9 @@ class EquipeController extends Controller
      */
     public function index()
     {
-        //
+        $equipes = Equipe::orderBy('created_at', 'DESC')->paginate(3);
+
+        return response()->json($equipes);
     }
 
     /**
