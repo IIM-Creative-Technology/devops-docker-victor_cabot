@@ -14,9 +14,12 @@ class EquipeController extends Controller
      */
     public function index()
     {
-        $equipes = Equipe::orderBy('created_at', 'DESC')->paginate(3);
-
-        return response()->json($equipes);
+        if (request('q') !== null) {
+            $equipes['data'] = Equipe::where("name", 'like', '%' . request('q') . '%') ->get();
+            return response()->json($equipes);
+        } else {
+            return $this->refresh();
+        }
     }
 
     /**
@@ -37,7 +40,11 @@ class EquipeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $equipe = Equipe::create($request->all());
+
+        if($equipe) {
+            return $this->refresh();
+        }
     }
 
     /**
@@ -59,7 +66,9 @@ class EquipeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $equipe = Equipe::find($id);
+
+        return response()->json($equipe);
     }
 
     /**
@@ -69,9 +78,16 @@ class EquipeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
-        //
+        $equipe = Equipe::find($id);
+        $equipe->name = request('name');
+        $equipe->nombre_de_joueurs = request('nombre_de_joueurs');
+        $equipe->save();
+
+        if($equipe){
+            return $this->refresh();
+        }
     }
 
     /**
@@ -82,6 +98,19 @@ class EquipeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $equipe = Equipe::find($id);
+        
+        
+        if ($equipe->delete()){
+            return $this->refresh();
+        } else {
+            return response()->json(['error' => 'Destroy method has failed.'], 425);
+        }
+    }
+
+    private function refresh() {
+        $equipes = Equipe::orderBy('created_at', 'DESC')->paginate(3);
+
+            return response()->json($equipes);
     }
 }

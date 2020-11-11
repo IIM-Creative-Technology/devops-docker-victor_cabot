@@ -33,7 +33,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-        <button type="submit" class="btn btn-success" @click='equipeStore'>Ajouter l'équipe</button>
+        <button type="submit" class="btn btn-success" @click='equipeStore' data-dismiss="modal">Ajouter l'équipe</button>
       </div>
     </div>
   </div>
@@ -55,7 +55,12 @@ export default {
 
     methods: {
         equipeStore(){
-
+            axios.post('http://127.0.0.1:8000/api/equipesList', {
+                name: this.name,
+                nombre_de_joueurs : this.nombre_de_joueurs
+            })
+            .then(response => this.$emit('equipe-added', response))
+            .catch(error => console.log(error));
         }
     }
 }
