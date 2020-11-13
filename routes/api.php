@@ -25,4 +25,9 @@ Route::get('/equipes/edit/{id}', 'EquipeController@edit');
 Route::patch('/equipes/edit/{id}', 'EquipeController@update');
 Route::delete('/equipes/{id}', 'EquipeController@destroy');
 
+Route::get('/matchesList', 'MatchController@index');
+
+
+
+
 

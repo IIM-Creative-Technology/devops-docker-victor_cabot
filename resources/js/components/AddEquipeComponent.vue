@@ -60,7 +60,7 @@ export default {
                 nombre_de_joueurs : this.nombre_de_joueurs
             })
             .then(response => this.$emit('equipe-added', response))
-            .catch(error => console.log(error));
+            .catch(error => console.log('Saisi Incorrect'));
         }
     }
 }
