@@ -24,9 +24,9 @@ class CreateMatchesTable extends Migration
 
         Schema::table('matches', function (Blueprint $table) {
 
-            $table->foreign('id_equipeA')->references('id')->on('equipes');
+            $table->foreign('id_equipeA')->references('id')->on('equipes')->onDelete('cascade');;
 
-            $table->foreign('id_equipeB')->references('id')->on('equipes');
+            $table->foreign('id_equipeB')->references('id')->on('equipes')->onDelete('cascade');;
         });
     }
 

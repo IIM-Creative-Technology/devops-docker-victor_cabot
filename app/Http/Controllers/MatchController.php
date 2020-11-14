@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Match;
+use App\Equipe;
 use Illuminate\Http\Request;
 
 class MatchController extends Controller
@@ -14,8 +15,10 @@ class MatchController extends Controller
      */
     public function index()
     {
-        $matches = Match::orderBy('created_at', 'DESC')->paginate(3);
-        return response()->json($matches);
+        $matches = Match::with(['equipeA','equipeB'])->orderBy('created_at', 'DESC')->paginate(3);
+        return response()->json([
+            'matches' => $matches
+        ]);
     }
 
     /**
@@ -36,7 +39,11 @@ class MatchController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $matches = Match::create($request->all());
+
+        if ($matches) {
+            return $this->refresh();
+        }
     }
 
     /**
@@ -56,9 +63,10 @@ class MatchController extends Controller
      * @param  \App\Match  $match
      * @return \Illuminate\Http\Response
      */
-    public function edit(Match $match)
+    public function edit($id)
     {
-        //
+        $match = Match::with(['equipeA','equipeB'])->find($id);
+        return response()->json($match);
     }
 
     /**
@@ -68,9 +76,16 @@ class MatchController extends Controller
      * @param  \App\Match  $match
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Match $match)
+    public function update($id)
     {
-        //
+        $match = Match::find($id);
+        $match->id_equipeA = request('id_equipeA');
+        $match->id_equipeB = request('id_equipeB');
+        $match->save();
+
+        if($match) {
+            return this.refresh();
+        }
     }
 
     /**
@@ -83,4 +98,16 @@ class MatchController extends Controller
     {
         //
     }
+
+    private function refresh() {
+        $matches = Match::with(['equipeA','equipeB'])->orderBy('created_at', 'DESC')->paginate(3);
+        return response()->json([
+            'matches' => $matches
+        ]);
+    }
+    // private function refresh() {
+    //     $matches = Match::orderBy('created_at', 'DESC')->paginate(3);
+
+    //         return response()->json($matches);
+    // }
 }

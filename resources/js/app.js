@@ -10,6 +10,7 @@ Vue.component('pagination', require('laravel-vue-pagination'));
 Vue.component('add-equipe', require('./components/AddEquipeComponent.vue').default);
 Vue.component('edit-equipe', require('./components/EditEquipeComponent.vue').default);
 Vue.component('add-match', require('./components/AddMatchComponent.vue').default);
+Vue.component('edit-match', require('./components/EditMatchComponent.vue').default);
 
 import Home from './components/HomeComponent.vue';
 import Equipe from './components/EquipeComponent.vue';

@@ -2033,28 +2033,48 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       id_equipeA: '',
-      id_equipeB: ''
+      id_equipeB: '',
+      equipes: []
     };
+  },
+  computed: {
+    checkEquipeId: function checkEquipeId() {
+      return this.id_equipeA === this.id_equipeB;
+    }
   },
   methods: {
     matchStore: function matchStore() {
       var _this = this;
 
-      methods: {
-        axios.post('http://127.0.0.1:8000/api/matchesList', {
-          id_equipeA: this.id_equipeA,
-          id_equipeB: this.id_equipeB
-        }).then(function (response) {
-          return _this.$emit('match-added', response);
-        })["catch"](function (error) {
-          return console.log('Saisi Incorrect');
-        });
-      }
+      axios.post('http://127.0.0.1:8000/api/matchesList', {
+        id_equipeA: this.id_equipeA,
+        id_equipeB: this.id_equipeB
+      }).then(function (response) {
+        return _this.$emit('match-added', response);
+      })["catch"](function (error) {
+        return console.log('Saisi Incorrect');
+      });
+    },
+    getEquipes: function getEquipes() {
+      var _this2 = this;
+
+      axios.get('http://127.0.0.1:8000/api/equipesList').then(function (response) {
+        return _this2.equipes = response.data.data;
+      })["catch"](function (error) {
+        return console.log(error);
+      });
     }
+  },
+  mounted: function mounted() {
+    this.getEquipes();
   }
 });
 
@@ -2124,6 +2144,104 @@ __webpack_require__.r(__webpack_exports__);
         return console.log(error);
       });
     }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EditMatchComponent.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/EditMatchComponent.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      id_equipeA: '',
+      id_equipeB: '',
+      props: ['matchToEdit'],
+      equipes: []
+    };
+  },
+  computed: {
+    checkEquipeId: function checkEquipeId() {
+      return this.id_equipeA === this.id_equipeB;
+    }
+  },
+  methods: {
+    getEquipes: function getEquipes() {
+      var _this = this;
+
+      axios.get('http://127.0.0.1:8000/api/equipesList').then(function (response) {
+        return _this.equipes = response.data.data;
+      })["catch"](function (error) {
+        return console.log(error);
+      });
+    },
+    update: function update() {
+      var _this2 = this;
+
+      axios.get('http://127.0.0.1:8000/api/matches/edit/' + this.matchToEdit.id, {
+        id_equipeA: this.matchToEdit.id_equipeA,
+        id_equipeB: this.matchToEdit.id_equipeB
+      }).then(function (response) {
+        return _this2.$emit('match-updated', response);
+      })["catch"](function (error) {
+        return console.log(error);
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.getEquipes();
   }
 });
 
@@ -2294,17 +2412,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      matches: {}
+      matches: {},
+      matchToEdit: {
+        id_equipeA: '',
+        id_equipeB: ''
+      }
     };
   },
   created: function created() {
     var _this = this;
 
     axios.get('http://127.0.0.1:8000/api/matchesList').then(function (response) {
-      return _this.matches = response.data;
+      return _this.matches = response.data.matches;
     })["catch"](function (error) {
       return console.log(error);
     });
@@ -2315,8 +2438,20 @@ __webpack_require__.r(__webpack_exports__);
 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       axios.get('http://127.0.0.1:8000/api/matchesList?page=' + page).then(function (response) {
-        _this2.matches = response.data;
+        _this2.matches = response.data.matches;
       });
+    },
+    getMatch: function getMatch(id) {
+      var _this3 = this;
+
+      axios.get('http://127.0.0.1:8000/api/matches/edit/' + id).then(function (response) {
+        return _this3.matchToEdit = response.data.matches;
+      })["catch"](function (error) {
+        return console.log(error);
+      });
+    },
+    refresh: function refresh(matches) {
+      this.matches = matches.data.matches;
     }
   },
   mounted: function mounted() {
@@ -38721,7 +38856,7 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-control",
-                    attrs: { id: "exampleFormControlSelect1" },
+                    attrs: { id: "id_equipeA", name: "id_equipeA" },
                     on: {
                       change: function($event) {
                         var $$selectedVal = Array.prototype.filter
@@ -38741,10 +38876,23 @@ var render = function() {
                   [
                     _c(
                       "option",
-                      { attrs: { name: "id_equipeA", id: "id_equipeA" } },
-                      [_vm._v(_vm._s(_vm.id_equipeA))]
-                    )
-                  ]
+                      { attrs: { value: "", disabled: "", selected: "" } },
+                      [_vm._v("Sélectionner une équipe...")]
+                    ),
+                    _vm._v(" "),
+                    _vm._l(_vm.equipes, function(equipe, index) {
+                      return _c(
+                        "option",
+                        {
+                          key: index,
+                          attrs: { id: equipe.id },
+                          domProps: { value: equipe.id }
+                        },
+                        [_vm._v(_vm._s(equipe.name))]
+                      )
+                    })
+                  ],
+                  2
                 )
               ]),
               _vm._v(" "),
@@ -38765,7 +38913,7 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-control",
-                    attrs: { id: "exampleFormControlSelect1" },
+                    attrs: { id: "id_equipeB", name: "id_equipeB" },
                     on: {
                       change: function($event) {
                         var $$selectedVal = Array.prototype.filter
@@ -38785,10 +38933,23 @@ var render = function() {
                   [
                     _c(
                       "option",
-                      { attrs: { name: "id_equipeB", id: "id_equipeB" } },
-                      [_vm._v(_vm._s(_vm.id_equipeB))]
-                    )
-                  ]
+                      { attrs: { value: "", disabled: "", selected: "" } },
+                      [_vm._v("Sélectionner une équipe...")]
+                    ),
+                    _vm._v(" "),
+                    _vm._l(_vm.equipes, function(equipe, index) {
+                      return _c(
+                        "option",
+                        {
+                          key: index,
+                          attrs: { id: equipe.id },
+                          domProps: { value: equipe.id }
+                        },
+                        [_vm._v(_vm._s(equipe.name))]
+                      )
+                    })
+                  ],
+                  2
                 )
               ])
             ]),
@@ -38807,7 +38968,11 @@ var render = function() {
                 "button",
                 {
                   staticClass: "btn btn-success",
-                  attrs: { type: "submit" },
+                  attrs: {
+                    type: "submit",
+                    disabled: _vm.checkEquipeId,
+                    "data-dismiss": "modal"
+                  },
                   on: { click: _vm.matchStore }
                 },
                 [_vm._v("Ajouter un match")]
@@ -38982,6 +39147,221 @@ var staticRenderFns = [
         "h5",
         { staticClass: "modal-title", attrs: { id: "editModalLabel" } },
         [_vm._v("Editer l'équipe")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EditMatchComponent.vue?vue&type=template&id=84584be6&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/EditMatchComponent.vue?vue&type=template&id=84584be6& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "editmatchModal",
+          tabindex: "-1",
+          "aria-labelledby": "editmatchModalLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c("div", { staticClass: "modal-dialog" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "id_equipeA" } }, [
+                  _vm._v("Equipe A")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.matchToEdit.id_equipeA,
+                        expression: "matchToEdit.id_equipeA"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { id: "id_equipeA", name: "id_equipeA" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.matchToEdit,
+                          "id_equipeA",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "option",
+                      { attrs: { value: "", disabled: "", selected: "" } },
+                      [_vm._v("Sélectionner une équipe...")]
+                    ),
+                    _vm._v(" "),
+                    _vm._l(_vm.equipes, function(equipe, index) {
+                      return _c(
+                        "option",
+                        {
+                          key: index,
+                          attrs: { id: equipe.id },
+                          domProps: { value: equipe.id }
+                        },
+                        [_vm._v(_vm._s(equipe.name))]
+                      )
+                    })
+                  ],
+                  2
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "id_equipeB" } }, [
+                  _vm._v("Equipe B")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.matchToEdit.id_equipeB,
+                        expression: "matchToEdit.id_equipeB"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { id: "id_equipeB", name: "id_equipeB" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.matchToEdit,
+                          "id_equipeB",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "option",
+                      { attrs: { value: "", disabled: "", selected: "" } },
+                      [_vm._v("Sélectionner une équipe...")]
+                    ),
+                    _vm._v(" "),
+                    _vm._l(_vm.equipes, function(equipe, index) {
+                      return _c(
+                        "option",
+                        {
+                          key: index,
+                          attrs: { id: equipe.id },
+                          domProps: { value: equipe.id }
+                        },
+                        [_vm._v(_vm._s(equipe.name))]
+                      )
+                    })
+                  ],
+                  2
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-secondary",
+                  attrs: { type: "button", "data-dismiss": "modal" }
+                },
+                [_vm._v("Close")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-success",
+                  attrs: { type: "submit", "data-dismiss": "modal" },
+                  on: { click: _vm.update }
+                },
+                [_vm._v("Enregistrer")]
+              )
+            ])
+          ])
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "editmatchModalLabel" } },
+        [_vm._v("Modal title")]
       ),
       _vm._v(" "),
       _c(
@@ -39184,33 +39564,86 @@ var render = function() {
     "div",
     { staticClass: "container" },
     [
-      _c("add-match"),
+      _c("add-match", { on: { "match-added": _vm.refresh } }),
       _vm._v(" "),
       _vm._m(0),
       _vm._v(" "),
       _c(
         "ul",
         { staticClass: "list-group" },
-        _vm._l(_vm.matches.data, function(match) {
-          return _c(
-            "li",
-            {
-              key: match.id,
-              staticClass:
-                "list-group-item d-flex justify-content-between align-items-center"
-            },
-            [
-              _c("a", [_vm._v(" " + _vm._s(_vm.matches.id_equipeA) + " ")]),
-              _vm._v(" "),
-              _c("a", [_vm._v(" " + _vm._s(_vm.matches.id_equipeB) + " ")]),
-              _vm._v(" "),
-              _c("a", { attrs: { href: "#" } }),
-              _vm._v(" "),
-              _vm._m(1, true)
-            ]
-          )
-        }),
-        0
+        [
+          _vm._l(_vm.matches.data, function(match) {
+            return _c(
+              "li",
+              {
+                key: match.id,
+                staticClass:
+                  "list-group-item d-flex justify-content-between align-items-center"
+              },
+              [
+                _c("a", [_vm._v(" " + _vm._s(match.equipe_a.name) + " ")]),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    staticStyle: {
+                      "margin-bottom": "auto",
+                      "margin-top": "auto"
+                    }
+                  },
+                  [_vm._v("Contre")]
+                ),
+                _vm._v(" "),
+                _c("a", [_vm._v(" " + _vm._s(match.equipe_b.name) + " ")]),
+                _vm._v(" "),
+                _c("a", { attrs: { href: "#" } }),
+                _vm._v(" "),
+                _c("div", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary",
+                      attrs: {
+                        type: "button",
+                        "data-toggle": "modal",
+                        "data-target": "#editmatchModal"
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.getMatch(match.id)
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Editer\n                    "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger",
+                      attrs: { type: "button", "data-toggle": "modal" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Supprimer\n                    "
+                      )
+                    ]
+                  )
+                ])
+              ]
+            )
+          }),
+          _vm._v(" "),
+          _c("edit-match", {
+            attrs: { matchToEdit: _vm.matchToEdit },
+            on: { "match-updated": _vm.refresh }
+          })
+        ],
+        2
       ),
       _vm._v(" "),
       _c("pagination", {
@@ -39232,30 +39665,6 @@ var staticRenderFns = [
         staticClass: "form-control mb-5 mt-3",
         attrs: { type: "text", placeholder: "Rechercher un match..." }
       })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-secondary",
-          attrs: { type: "button", "data-toggle": "modal" }
-        },
-        [_vm._v("\n                        Editer\n                    ")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-danger",
-          attrs: { type: "button", "data-toggle": "modal" }
-        },
-        [_vm._v("\n                        Supprimer\n                    ")]
-      )
     ])
   }
 ]
@@ -54528,6 +54937,7 @@ Vue.component('pagination', __webpack_require__(/*! laravel-vue-pagination */ ".
 Vue.component('add-equipe', __webpack_require__(/*! ./components/AddEquipeComponent.vue */ "./resources/js/components/AddEquipeComponent.vue")["default"]);
 Vue.component('edit-equipe', __webpack_require__(/*! ./components/EditEquipeComponent.vue */ "./resources/js/components/EditEquipeComponent.vue")["default"]);
 Vue.component('add-match', __webpack_require__(/*! ./components/AddMatchComponent.vue */ "./resources/js/components/AddMatchComponent.vue")["default"]);
+Vue.component('edit-match', __webpack_require__(/*! ./components/EditMatchComponent.vue */ "./resources/js/components/EditMatchComponent.vue")["default"]);
 
 
 
@@ -54798,6 +55208,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditEquipeComponent_vue_vue_type_template_id_4036847a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditEquipeComponent_vue_vue_type_template_id_4036847a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/EditMatchComponent.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/components/EditMatchComponent.vue ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _EditMatchComponent_vue_vue_type_template_id_84584be6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditMatchComponent.vue?vue&type=template&id=84584be6& */ "./resources/js/components/EditMatchComponent.vue?vue&type=template&id=84584be6&");
+/* harmony import */ var _EditMatchComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EditMatchComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/EditMatchComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _EditMatchComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _EditMatchComponent_vue_vue_type_template_id_84584be6___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _EditMatchComponent_vue_vue_type_template_id_84584be6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/EditMatchComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/EditMatchComponent.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/EditMatchComponent.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditMatchComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./EditMatchComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EditMatchComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditMatchComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/EditMatchComponent.vue?vue&type=template&id=84584be6&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/EditMatchComponent.vue?vue&type=template&id=84584be6& ***!
+  \***************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditMatchComponent_vue_vue_type_template_id_84584be6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./EditMatchComponent.vue?vue&type=template&id=84584be6& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EditMatchComponent.vue?vue&type=template&id=84584be6&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditMatchComponent_vue_vue_type_template_id_84584be6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditMatchComponent_vue_vue_type_template_id_84584be6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
