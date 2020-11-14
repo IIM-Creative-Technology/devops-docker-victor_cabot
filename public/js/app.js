@@ -2041,7 +2041,20 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    matchStore: function matchStore() {}
+    matchStore: function matchStore() {
+      var _this = this;
+
+      methods: {
+        axios.post('http://127.0.0.1:8000/api/matchesList', {
+          id_equipeA: this.id_equipeA,
+          id_equipeB: this.id_equipeB
+        }).then(function (response) {
+          return _this.$emit('match-added', response);
+        })["catch"](function (error) {
+          return console.log('Saisi Incorrect');
+        });
+      }
+    }
   }
 });
 
@@ -38729,7 +38742,7 @@ var render = function() {
                     _c(
                       "option",
                       { attrs: { name: "id_equipeA", id: "id_equipeA" } },
-                      [_vm._v(_vm._s(_vm.id_equipeA.name))]
+                      [_vm._v(_vm._s(_vm.id_equipeA))]
                     )
                   ]
                 )

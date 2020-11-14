@@ -21,7 +21,7 @@
           <div class="form-group">
     <label for="id_equipeA">Equipe A</label>
     <select class="form-control" id="exampleFormControlSelect1" v-model="id_equipeA">
-      <option name="id_equipeA" id="id_equipeA">{{ id_equipeA.name }}</option>
+      <option name="id_equipeA" id="id_equipeA">{{ id_equipeA }}</option>
     </select>
   </div>
 
@@ -49,13 +49,21 @@ export default {
     data() {
         return {
         id_equipeA: '',
-        id_equipeB: ''
+        id_equipeB: '',
         }
     },
     methods: {
         matchStore() {
-
+            methods: {
+            axios.post('http://127.0.0.1:8000/api/matchesList', {
+                id_equipeA: this.id_equipeA,
+                id_equipeB : this.id_equipeB
+            })
+            .then(response => this.$emit('match-added', response))
+            .catch(error => console.log('Saisi Incorrect'));
         }
     }
-}
+        }
+    }
+
 </script>
