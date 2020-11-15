@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+ 
         <add-match @match-added="refresh"></add-match>
         <!-- Button trigger modal -->
         

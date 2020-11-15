@@ -35,7 +35,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit"  class="btn btn-success" data-dismiss="modal" @click="update">Enregistrer</button>
+        <button type="submit"  :disabled="checkEquipeId" class="btn btn-success" data-dismiss="modal" @click="update">Enregistrer</button>
       </div>
     </div>
   </div>
@@ -55,7 +55,7 @@ export default {
     },
     computed: {
         checkEquipeId: function(){
-            return this.id_equipeA === this.id_equipeB
+            return this.matchToEdit.id_equipeA === this.matchToEdit.id_equipeB
         }
     },
     methods: {

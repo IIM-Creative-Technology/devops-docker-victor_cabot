@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Match;
 use App\Equipe;
+use App\Http\Requests\StoreMatchPost;
 use Illuminate\Http\Request;
 
 class MatchController extends Controller
@@ -38,14 +39,17 @@ class MatchController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreMatchPost $request)
     {
         $matches = Match::create($request->all());
+        $validated = $request->validated();
 
         if ($matches) {
             return $this->refresh();
         }
     }
+
+
 
     /**
      * Display the specified resource.

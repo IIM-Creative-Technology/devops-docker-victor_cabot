@@ -3,6 +3,27 @@
         <div class="form-row">
             <input type="text" class="form-control" @keyup="searchEquipe" v-model="q" placeholder="Rechercher une équipe...">
             </div>
+
+<div  v-for="equipe in equipes.data" :key="equipe.id" class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="color:red;">Attention si vous supprimez une équipe les matchs dont elle fait partie seront automatiquement supprimés.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" @click="deleteEquipe(equipe.id)">Supprimer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
         <add-equipe @equipe-added="refresh"></add-equipe>
             <ul class="list-group">
                 <li class="list-group-item d-flex justify-content-between align-items-center" v-for="equipe in equipes.data" :key="equipe.id">
@@ -11,7 +32,7 @@
                         <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#editModal" @click="getEquipe(equipe.id)">
                             Editer
                         </button>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" @click="deleteEquipe(equipe.id)">
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
                             Supprimer
                         </button>
                         </div>

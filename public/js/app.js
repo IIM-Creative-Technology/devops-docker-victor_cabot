@@ -2214,7 +2214,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     checkEquipeId: function checkEquipeId() {
-      return this.id_equipeA === this.id_equipeB;
+      return this.matchToEdit.id_equipeA === this.matchToEdit.id_equipeB;
     }
   },
   methods: {
@@ -2256,6 +2256,27 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2384,6 +2405,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -39348,7 +39370,11 @@ var render = function() {
                 "button",
                 {
                   staticClass: "btn btn-success",
-                  attrs: { type: "submit", "data-dismiss": "modal" },
+                  attrs: {
+                    type: "submit",
+                    disabled: _vm.checkEquipeId,
+                    "data-dismiss": "modal"
+                  },
                   on: { click: _vm.update }
                 },
                 [_vm._v("Enregistrer")]
@@ -39432,6 +39458,56 @@ var render = function() {
         })
       ]),
       _vm._v(" "),
+      _vm._l(_vm.equipes.data, function(equipe) {
+        return _c(
+          "div",
+          {
+            key: equipe.id,
+            staticClass: "modal fade",
+            attrs: {
+              id: "deleteModal",
+              tabindex: "-1",
+              "aria-labelledby": "deleteModalLabel",
+              "aria-hidden": "true"
+            }
+          },
+          [
+            _c("div", { staticClass: "modal-dialog" }, [
+              _c("div", { staticClass: "modal-content" }, [
+                _vm._m(0, true),
+                _vm._v(" "),
+                _vm._m(1, true),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-footer" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary",
+                      attrs: { type: "button", "data-dismiss": "modal" }
+                    },
+                    [_vm._v("Fermer")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger",
+                      attrs: { type: "button", "data-dismiss": "modal" },
+                      on: {
+                        click: function($event) {
+                          return _vm.deleteEquipe(equipe.id)
+                        }
+                      }
+                    },
+                    [_vm._v("Supprimer")]
+                  )
+                ])
+              ])
+            ])
+          ]
+        )
+      }),
+      _vm._v(" "),
       _c("add-equipe", { on: { "equipe-added": _vm.refresh } }),
       _vm._v(" "),
       _c(
@@ -39469,7 +39545,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                        Editer\n                    "
+                        "\n                            Editer\n                        "
                       )
                     ]
                   ),
@@ -39478,16 +39554,15 @@ var render = function() {
                     "button",
                     {
                       staticClass: "btn btn-danger",
-                      attrs: { type: "button", "data-toggle": "modal" },
-                      on: {
-                        click: function($event) {
-                          return _vm.deleteEquipe(equipe.id)
-                        }
+                      attrs: {
+                        type: "button",
+                        "data-toggle": "modal",
+                        "data-target": "#deleteModal"
                       }
                     },
                     [
                       _vm._v(
-                        "\n                        Supprimer\n                    "
+                        "\n                            Supprimer\n                        "
                       )
                     ]
                   )
@@ -39510,10 +39585,48 @@ var render = function() {
         on: { "pagination-change-page": _vm.getResults }
       })
     ],
-    1
+    2
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "deleteModalLabel" } },
+        [_vm._v("Modal title")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-body" }, [
+      _c("p", { staticStyle: { color: "red" } }, [
+        _vm._v(
+          "Attention si vous supprimez une équipe les matchs dont elle fait partie seront automatiquement supprimés."
+        )
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
