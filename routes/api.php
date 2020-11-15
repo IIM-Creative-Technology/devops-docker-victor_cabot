@@ -29,6 +29,7 @@ Route::get('/matchesList', 'MatchController@index');
 Route::post('/matchesList', 'MatchController@store');
 Route::get('/matches/edit/{id}', 'MatchController@edit');
 Route::patch('/matches/edit/{id}', 'MatchController@update');
+Route::delete('/matches/{id}', 'MatchController@destroy');
 
 
 

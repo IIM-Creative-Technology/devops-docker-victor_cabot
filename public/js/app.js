@@ -2204,11 +2204,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['matchToEdit'],
   data: function data() {
     return {
       id_equipeA: '',
       id_equipeB: '',
-      props: ['matchToEdit'],
       equipes: []
     };
   },
@@ -2230,7 +2230,7 @@ __webpack_require__.r(__webpack_exports__);
     update: function update() {
       var _this2 = this;
 
-      axios.get('http://127.0.0.1:8000/api/matches/edit/' + this.matchToEdit.id, {
+      axios.patch('http://127.0.0.1:8000/api/matches/edit/' + this.matchToEdit.id, {
         id_equipeA: this.matchToEdit.id_equipeA,
         id_equipeB: this.matchToEdit.id_equipeB
       }).then(function (response) {
@@ -2410,17 +2410,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       matches: {},
       matchToEdit: {
+        id: '',
         id_equipeA: '',
         id_equipeB: ''
-      }
+      },
+      q: ''
     };
   },
   created: function created() {
@@ -2445,7 +2444,16 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       axios.get('http://127.0.0.1:8000/api/matches/edit/' + id).then(function (response) {
-        return _this3.matchToEdit = response.data.matches;
+        return _this3.matchToEdit = response.data;
+      })["catch"](function (error) {
+        return console.log(error);
+      });
+    },
+    deleteMatch: function deleteMatch(id) {
+      var _this4 = this;
+
+      axios["delete"]('http://127.0.0.1:8000/api/matches/' + id).then(function (response) {
+        return _this4.matches = response.data.matches;
       })["catch"](function (error) {
         return console.log(error);
       });
@@ -39566,11 +39574,9 @@ var render = function() {
     [
       _c("add-match", { on: { "match-added": _vm.refresh } }),
       _vm._v(" "),
-      _vm._m(0),
-      _vm._v(" "),
       _c(
         "ul",
-        { staticClass: "list-group" },
+        { staticClass: "list-group mt-3" },
         [
           _vm._l(_vm.matches.data, function(match) {
             return _c(
@@ -39591,7 +39597,7 @@ var render = function() {
                       "margin-top": "auto"
                     }
                   },
-                  [_vm._v("Contre")]
+                  [_vm._v("contre")]
                 ),
                 _vm._v(" "),
                 _c("a", [_vm._v(" " + _vm._s(match.equipe_b.name) + " ")]),
@@ -39625,7 +39631,12 @@ var render = function() {
                     "button",
                     {
                       staticClass: "btn btn-danger",
-                      attrs: { type: "button", "data-toggle": "modal" }
+                      attrs: { type: "button", "data-toggle": "modal" },
+                      on: {
+                        click: function($event) {
+                          return _vm.deleteMatch(match.id)
+                        }
+                      }
                     },
                     [
                       _vm._v(
@@ -39638,10 +39649,12 @@ var render = function() {
             )
           }),
           _vm._v(" "),
-          _c("edit-match", {
-            attrs: { matchToEdit: _vm.matchToEdit },
-            on: { "match-updated": _vm.refresh }
-          })
+          _vm.matchToEdit.id
+            ? _c("edit-match", {
+                attrs: { matchToEdit: _vm.matchToEdit },
+                on: { "match-updated": _vm.refresh }
+              })
+            : _vm._e()
         ],
         2
       ),
@@ -39655,19 +39668,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-row" }, [
-      _c("input", {
-        staticClass: "form-control mb-5 mt-3",
-        attrs: { type: "text", placeholder: "Rechercher un match..." }
-      })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

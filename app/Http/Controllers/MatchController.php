@@ -15,6 +15,7 @@ class MatchController extends Controller
      */
     public function index()
     {
+
         $matches = Match::with(['equipeA','equipeB'])->orderBy('created_at', 'DESC')->paginate(3);
         return response()->json([
             'matches' => $matches
@@ -84,7 +85,7 @@ class MatchController extends Controller
         $match->save();
 
         if($match) {
-            return this.refresh();
+            return $this->refresh();
         }
     }
 
@@ -94,9 +95,11 @@ class MatchController extends Controller
      * @param  \App\Match  $match
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Match $match)
+    public function destroy($id)
     {
-        //
+        $match = Match::find($id);
+        $match->delete();
+        return $this->refresh();
     }
 
     private function refresh() {

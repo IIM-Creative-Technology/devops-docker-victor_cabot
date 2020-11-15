@@ -45,11 +45,11 @@
 
 <script>
 export default {
+            props: ['matchToEdit'],
     data() {
         return {
         id_equipeA: '',
         id_equipeB: '',
-        props: ['matchToEdit'],
         equipes: []
         }
     },
@@ -65,7 +65,7 @@ export default {
                 .catch(error => console.log(error));
         },
         update() {
-            axios.get('http://127.0.0.1:8000/api/matches/edit/' + this.matchToEdit.id, {
+            axios.patch('http://127.0.0.1:8000/api/matches/edit/' + this.matchToEdit.id, {
                 id_equipeA: this.matchToEdit.id_equipeA,
                 id_equipeB: this.matchToEdit.id_equipeB
             })
