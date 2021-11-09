@@ -10,8 +10,4 @@ class Equipe extends Model
         'name', 'nombre_de_joueurs'
     ];
 
-    public function match(){
-        return $this->hasMany('App\Match');
-    }
-
 }
