@@ -19,3 +19,11 @@ This repository is a student project on devops and CI/CD. It is a CRUD allowing 
     <li>Travis com <a href="https://docs.travis-ci.com/">documentation link</a></li>
 </ul>
 
+## Demo
+
+| Environment | Link |
+| ------ | ----------- |
+| Prod   | <a href="https://devopsa4-prod.herokuapp.com/">https://devopsa4-prod.herokuapp.com |
+| Pre-Prod | <a href="https://devopsa4-preprod.herokuapp.com/">https://devopsa4-preprod.herokuapp.com |
+| Dev    | <a href="https://devopsa4-stage.herokuapp.com/">https://devopsa4-stage.herokuapp.com |
+
