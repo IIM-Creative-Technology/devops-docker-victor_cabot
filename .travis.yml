@@ -1,16 +1,18 @@
-language: nodejs
-node_js:
-  - 'stable'
+language: php
 php:
   - '7.4'
   - '8.0'
 cache:
   directories:
     - node_modules
+    - vendor
+before_script:
+  - composer self-update
+  - composer install --prefer-source --no-interaction --dev
+  - php artisan key:generate
+  - php artisan migrate
 script:
   - npm install
-  - composer install
-  - php artisan migrate --force
 on:
   branch: main
 deploy:
