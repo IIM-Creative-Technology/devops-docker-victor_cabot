@@ -5,8 +5,9 @@ cache:
   directories:
     - node_modules
 script:
-  - yarn test --watchAll=false
-  - yarn build
+  - npm install
+  - composer install
+  - php artisan migrate --force
 on:
   branch: main
 deploy:
