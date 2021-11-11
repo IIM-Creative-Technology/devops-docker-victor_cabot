@@ -1,6 +1,9 @@
-language: node_js
+language: nodejs
 node_js:
   - 'stable'
+php:
+  - '7.4'
+  - '8.0'
 cache:
   directories:
     - node_modules
@@ -14,9 +17,6 @@ deploy:
   provider: heroku
   api_key: $HEROKU_KEY
   app: $HEROKU_APP
-php:
-  - '7.4'
-  - '8.0'
 
 
 redis:
