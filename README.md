@@ -1,11 +1,12 @@
 # Devops A4 IWM Victor
 This repository is a student project on devops and CI/CD. It is a CRUD allowing to create teams.
+
 ##State
 
 | Environment | State |
 | ------ | ----------- |
 | Prod   | <a href="#"><img src="https://app.travis-ci.com/Denporty/DevopsA4_Victor.svg?branch=main" alt="Build Status"> |
-| Pre-Prod | Soon |
+| Pre-Prod | <a href="#"><img src="https://app.travis-ci.com/Denporty/DevopsA4_Victor.svg?branch=preprod" alt="Build Status"> |
 | Dev    | <a href="#"><img src="https://app.travis-ci.com/Denporty/DevopsA4_Victor.svg?branch=develop" alt="Build Status"></a> |
 
 ##Stack
