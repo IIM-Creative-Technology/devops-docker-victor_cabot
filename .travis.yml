@@ -6,7 +6,7 @@ cache:
     - node_modules
 script:
   - npm install
-  - composer install
+  - composer install --force
   - php artisan migrate --force
 on:
   branch: main
