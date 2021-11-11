@@ -16,13 +16,17 @@ before_script:
   - php artisan migrate
 script:
   - npm install
-only:
+branches:
+  only:
   - main
   - develop
 deploy:
   provider: heroku
   api_key: $HEROKU_KEY
-  app: $HEROKU_APP
+  app:
+    master: $HEROKU_APP_PROD
+    pre-prod: $HEROKU_APP_PREPROD
+    dev: $HEROKU_APP_DEV
 
 
 redis:
