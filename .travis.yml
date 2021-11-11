@@ -1,22 +1,37 @@
-language: node_js
-node_js:
-  - 'stable'
+language: php
+php:
+- '7.4'
+- '8.0'
+services:
+- mysql
 cache:
   directories:
-    - node_modules
+  - node_modules
+  - vendor
+before_script:
+- cp .env.travis .env
+- sudo mysql -e 'create database testing;'
+- composer self-update
+- composer install --prefer-source --no-interaction --dev
+- php artisan migrate
 script:
-  - yarn test --watchAll=false
-  - yarn build
-on:
-  branch: main
+- npm install
+branches:
+  only:
+  - main
+  - develop
 deploy:
   provider: heroku
-  api_key: $HEROKU_KEY
-  app: $HEROKU_APP
-
-
+  api_key: "$HEROKU_KEY"
+  app:
+    master: "$HEROKU_APP_PROD"
+    pre-prod: "$HEROKU_APP_PREPROD"
+    dev: "$HEROKU_APP_DEV"
 redis:
   image: redis
   restart: always
   ports:
-    - 16379:6379
+  - 16379:6379
+env:
+  global:
+    secure: 6U3tVJgLvQ7h20xSQZgm2vP7zsrhhFCOqwioEdBOpVcnCM+N98zYC4GPF/M7eg9aUtPLAqILtzaNMqpQZJ3tgaNeimpFUeubghn/RDMrNLu/pQwr2zNDFuq2RSWC4NHZ6NgjMCNFQWSiRnkRKGpwCIJJjt0HBAXJmb6NTwmfG2rfYMVGIu6nVICLiZLCovv1TlET4zl3lnzwaJi4vP7UvZ514rBuvDVvG8zpCbO9mN6TBejmVRDRJcy0/mSuiAtbk9JQw4AOM3oJMEmZQ3T/suGvIV0RAscY2gT9z5pFMyaV7n3rRClvTftvlMt71RpXKY8BWmVFNNZ2fp+c3Z15Rj62xzR1o/B5aT7Ux/9WYKqAEd5sMx+7QiI9Md+DxW/e+FDMAAfQWFNIvhiWzTUm8/j86sxIZzES3u6VnmTgDmK6/VjV0YDsvQBU0i2SkDPzebecHidSNnt6ndT6sX2VID3RJtuo+SXuMcA0qUX1tZRWxgAFsH6klrPqaSi9jzWjIQ5Ws+GITk3QsPQrGwqolWV/XV6ttgPHW7pKlPsP5/XfA+J4/oAkweocFFo6BTHtMMjZIs+KLAdallNosHeQLDnBndFp24EbQLgOfZJRq6SNuCF5NXP4yT/74WXwtOvLfrGJK/lzd1PMC1la2xRVTBOSg3+vWSH8pRe0Rk1fkgI=

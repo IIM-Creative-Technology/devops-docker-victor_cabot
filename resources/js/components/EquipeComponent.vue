@@ -14,7 +14,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <p style="color:red;">Attention si vous supprimez une équipe les matchs dont elle fait partie seront automatiquement supprimés.</p>
+        <p style="color:red;">Attention si vous supprimez une équipe vous ne pourrez pas la restaurer.</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
@@ -66,7 +66,7 @@
 				.then(response => {
 					this.equipes = response.data;
 				});
-        },  
+        },
 
         getEquipe(id) {
             axios.get('http://127.0.0.1:8000/api/equipes/edit/' + id)
@@ -91,7 +91,7 @@
                 .catch(error => console.log(error));
             }
         },
-        
+
         refresh(equipes) {
             this.equipes = equipes.data
         }
