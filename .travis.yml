@@ -1,0 +1,22 @@
+language: node_js
+node_js:
+  - 'stable'
+cache:
+  directories:
+    - node_modules
+script:
+  - yarn test --watchAll=false
+  - yarn build
+on:
+  branch: main
+deploy:
+  provider: heroku
+  api_key: $HEROKU_KEY
+  app: $HEROKU_APP
+
+
+redis:
+  image: redis
+  restart: always
+  ports:
+    - 16379:6379
