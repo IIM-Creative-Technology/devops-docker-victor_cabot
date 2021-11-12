@@ -27,3 +27,9 @@ This repository is a student project on devops and CI/CD. It is a CRUD allowing 
 | Pre-Prod | <a href="https://devopsa4-preprod.herokuapp.com/">https://devopsa4-preprod.herokuapp.com |
 | Dev    | <a href="https://devopsa4-stage.herokuapp.com/">https://devopsa4-stage.herokuapp.com |
 
+## Discord
+
+With that discord link you can see notification like build / commit / pr etc ... in notifications channel
+
+https://discord.gg/YPg57umSDC
+
