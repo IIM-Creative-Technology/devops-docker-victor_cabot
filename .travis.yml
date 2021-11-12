@@ -26,6 +26,7 @@ build:
       - node_modules
       - vendor
 deploy:
+  stage: deploy
   provider: heroku
   api_key: "$HEROKU_KEY"
   app:
@@ -33,6 +34,7 @@ deploy:
     pre-prod: "$HEROKU_APP_PREPROD"
     dev: "$HEROKU_APP_DEV"
 test:
+  stage: test
   script:
     - php artisan test
 after_success:
