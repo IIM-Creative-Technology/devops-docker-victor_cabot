@@ -17,18 +17,22 @@ only:
 jobs:
   include:
     - stage: build
-      before_script:
-        - cp .env.travis .env
-        - sudo mysql -e 'create database testing;'
-        - composer self-update
-      script:
-        - composer install --prefer-source --no-interaction --dev
-        - npm install
-        - php artisan migrate
-      cache:
-        directories:
-          - node_modules
-          - vendor
+      only:
+        - main
+        - develop
+        - preprod
+        before_script:
+          - cp .env.travis .env
+          - sudo mysql -e 'create database testing;'
+          - composer self-update
+        script:
+          - composer install --prefer-source --no-interaction --dev
+          - npm install
+          - php artisan migrate
+        cache:
+          directories:
+            - node_modules
+            - vendor
       - stage: deploy
         provider: heroku
           api_key: "$HEROKU_KEY"
