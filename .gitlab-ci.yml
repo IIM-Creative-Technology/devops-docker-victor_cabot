@@ -6,6 +6,8 @@ stages:
 build:
   stage: build
   image: node:12
+  services:
+    - mysql:latest
   script:
     - cp .env.travis .env
     - sudo mysql -e 'create database testing;'
