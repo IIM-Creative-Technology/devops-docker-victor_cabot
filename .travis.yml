@@ -9,12 +9,13 @@ stages:
   - deploy
   - test
   - after
-build:
-  stage: build
-  before_script:
-    - cp .env.travis .env
-    - sudo mysql -e 'create database testing;'
-    - composer self-update
+jobs:
+  include:
+    - stage: build
+    before_script:
+      - cp .env.travis .env
+      - sudo mysql -e 'create database testing;'
+      - composer self-update
     script:
       - composer install --prefer-source --no-interaction --dev
       - npm install
@@ -27,37 +28,34 @@ build:
       - main
       - develop
       - preprod
-test:
-  stage: test
-  script:
-    - php artisan test
-  only:
-    - main
-    - develop
-    - preprod
-after:
-  stage: after
-  after_success:
-    - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
-    - chmod +x send.sh
-    - ./send.sh success $WEBHOOK_URL
-    after_failure:
-      - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
-      - chmod +x send.sh
-      - ./send.sh failure $WEBHOOK_URL
-    only:
-      - main
-      - develop
-      - preprod
-deploy:
-  stage: deploy
-  provider: heroku
-  api_key: "$HEROKU_KEY"
-  app:
-    master: "$HEROKU_APP_PROD"
-    pre-prod: "$HEROKU_APP_PREPROD"
-    dev: "$HEROKU_APP_DEV"
-  only:
-    - main
-    - develop
-    - preprod
+    - stage: test
+      script:
+        - php artisan test
+      only:
+        - main
+        - develop
+        - preprod
+    - stage: after
+      after_success:
+        - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+        - chmod +x send.sh
+        - ./send.sh success $WEBHOOK_URL
+      after_failure:
+        - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+        - chmod +x send.sh
+        - ./send.sh failure $WEBHOOK_URL
+      only:
+        - main
+        - develop
+        - preprod
+    - stage: deploy
+      provider: heroku
+      api_key: "$HEROKU_KEY"
+      app:
+        master: "$HEROKU_APP_PROD"
+        pre-prod: "$HEROKU_APP_PREPROD"
+        dev: "$HEROKU_APP_DEV"
+      only:
+        - main
+        - develop
+        - preprod
