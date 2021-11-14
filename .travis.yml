@@ -42,6 +42,10 @@ jobs:
         - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
         - chmod +x send.sh
         - ./send.sh failure $WEBHOOK_URL
+      cache:
+        directories:
+          - node_modules
+          - vendor
     - stage: deploy
       provider: heroku
       api_key: "$HEROKU_KEY"
@@ -49,3 +53,7 @@ jobs:
         master: "$HEROKU_APP_PROD"
         pre-prod: "$HEROKU_APP_PREPROD"
         dev: "$HEROKU_APP_DEV"
+      cache:
+        directories:
+          - node_modules
+          - vendor
