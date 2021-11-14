@@ -27,6 +27,9 @@ jobs:
       script:
         - composer dump-autoload
         - php artisan test
+    - stage: lint
+      script:
+        - vendor/bin/phpstan analyse app tests
     - stage: after
       after_success:
         - composer dump-autoload
