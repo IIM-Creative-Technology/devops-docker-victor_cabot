@@ -25,7 +25,12 @@ jobs:
           - vendor
     - stage: test
       script:
+        - composer dump-autoload
         - php artisan test
+      cache:
+        directories:
+          - node_modules
+          - vendor
     - stage: after
       after_success:
         - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
