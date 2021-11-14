@@ -36,6 +36,7 @@ Of more there are PR enviromnent like : https://devopsa4-pr-28.herokuapp.com/#/.
 | Prod   | <a href="https://devopsa4-prod.herokuapp.com/">https://devopsa4-prod.herokuapp.com |
 | Pre-Prod | <a href="https://devopsa4-preprod.herokuapp.com/">https://devopsa4-preprod.herokuapp.com |
 | Dev    | <a href="https://devopsa4-stage.herokuapp.com/">https://devopsa4-stage.herokuapp.com |
+| PR-Env    | <a href="https://devopsa4-br-try-pr-env.herokuapp.com/">https://devopsa4-br-try-pr-env.herokuapp.com |
 
 ## Discord
 
