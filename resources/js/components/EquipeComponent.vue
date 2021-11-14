@@ -55,38 +55,38 @@
         },
 
         created(){
-            axios.get('http://127.0.0.1:8000/api/equipesList')
+            axios.get(process.env.MIX_APP_URL +'/api/equipesList')
                 .then(response => this.equipes = response.data)
                 .catch(error => console.log(error));
         },
 
         methods: {
             getResults(page = 1) {
-			axios.get('http://127.0.0.1:8000/api/equipesList?page=' + page)
+			axios.get(process.env.MIX_APP_URL + '/api/equipesList?page=' + page)
 				.then(response => {
 					this.equipes = response.data;
 				});
         },
 
         getEquipe(id) {
-            axios.get('http://127.0.0.1:8000/api/equipes/edit/' + id)
+            axios.get(process.env.MIX_APP_URL + '/api/equipes/edit/' + id)
             .then(response => this.equipeToEdit = response.data)
             .catch(error => console.log(error));
         },
 
         deleteEquipe(id){
-            axios.delete('http://127.0.0.1:8000/api/equipes/' + id)
+            axios.delete(process.env.MIX_APP_URL + '/api/equipes/' + id)
             .then(response => this.equipes = response.data)
             .catch(error => console.log(error));
         },
 
         searchEquipe() {
             if(this.q.length > 3){
-            axios.get('http://127.0.0.1:8000/api/equipesList/' + this.q)
+            axios.get(process.env.MIX_APP_URL + '/api/equipesList/' + this.q)
                 .then(response => this.equipes = response.data)
                 .catch(error => console.log(error));
             } else {
-            axios.get('http://127.0.0.1:8000/api/equipesList/')
+            axios.get(process.env.MIX_APP_URL + '/api/equipesList/')
                 .then(response => this.equipes = response.data)
                 .catch(error => console.log(error));
             }
@@ -99,6 +99,7 @@
 
         mounted() {
             console.log('Component mounted.')
+            console.log(process.env)
         }
     }
 </script>

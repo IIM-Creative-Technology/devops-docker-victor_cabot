@@ -1,5 +1,5 @@
 <template>
-    
+
 <div>
 
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
@@ -12,7 +12,7 @@
         </button>
       </div>
       <div class="modal-body">
-        
+
 
           <form>
                 <div class="form-group">
@@ -44,7 +44,7 @@ export default {
 
     methods: {
         update(){
-            axios.patch('http://127.0.0.1:8000/api/equipes/edit/' + this.equipeToEdit.id, {
+            axios.patch(process.env.MIX_APP_URL + '/api/equipes/edit/' + this.equipeToEdit.id, {
                 name: this.equipeToEdit.name,
                 nombre_de_joueurs: this.equipeToEdit.nombre_de_joueurs
             })
