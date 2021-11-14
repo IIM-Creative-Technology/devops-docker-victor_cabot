@@ -1,0 +1,18 @@
+{
+    "stack": "heroku-20",
+    "buildpacks": [
+        {
+            "url": "heroku/php"
+        },
+        {
+            "url": "heroku/nodejs"
+        }
+    ],
+    "env": {
+    },
+    "environments": {
+        "review": {
+            "addons": ["jawsdb-maria"]
+        }
+    }
+}
