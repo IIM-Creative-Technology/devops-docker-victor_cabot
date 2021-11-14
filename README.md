@@ -6,7 +6,7 @@ Ce repository est un clone de mon repository GitHub trouvable à cette adresse :
 
 ## Introduction
 
-This repository is a student project on devops and CI/CD. It is a CRUD allowing to create teams.
+This repository is a student project on devops and CI/CD.
 In that project i have create 5 stage with travis (build, test, lint, after and deploy).
 With after i initialize webhook to have notification when build successfully in notifications discord channel (cf : discord part).
 Of more there are PR enviromnent like : https://devopsa4-pr-28.herokuapp.com/#/.
