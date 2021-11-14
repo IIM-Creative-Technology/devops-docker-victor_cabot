@@ -16,7 +16,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^2.4",
         "phpunit/phpunit": "^9.5",
-        "sentry/sentry-laravel": "^2.10",
+        "sentry/sentry-laravel": "^2.10"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
