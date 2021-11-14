@@ -1,4 +1,6 @@
 # Devops A4 IWM Victor
+I'm sorry but upload code it's depreceated and only create method it's available. You can also just create team and can't search, update or delete.
+
 This repository is a student project on devops and CI/CD. It is a CRUD allowing to create teams.
 In that project i have create 4 stage with travis (build, test, after and deploy).
 With after i initialize webhook to have notification when build successfully in notifications discord channel (cf : discord part).

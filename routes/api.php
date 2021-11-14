@@ -19,11 +19,7 @@ use App\Equipe;
     return $request->user();
 });*/
 
-Route::get('/equipesList/{q?}', 'EquipeController@index');
-Route::post('/equipesList', 'EquipeController@store');
-Route::get('/equipes/edit/{id}', 'EquipeController@edit');
-Route::patch('/equipes/edit/{id}', 'EquipeController@update');
-Route::delete('/equipes/{id}', 'EquipeController@destroy');
+
 
 
 
