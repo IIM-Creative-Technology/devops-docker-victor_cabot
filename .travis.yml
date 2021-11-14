@@ -18,9 +18,9 @@ jobs:
         - composer install --prefer-source --no-interaction --dev
         - npm install
         - php artisan migrate
+        - composer dump-autoload
     - stage: test
       script:
-        - composer require phpunit/phpunit
         - ./vendor/bin/phpunit
     - stage: after
       after_success:
