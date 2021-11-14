@@ -1,4 +1,11 @@
 # Devops A4 IWM Victor
+
+## Attention
+
+Ce repository est un clone de mon repository GitHub trouvable à cette adresse : https://github.com/Denporty/DevopsA4_Victor. Ce repository n'est donc pas celui qui est déployé. De plus, des modifications sur ce repository n'entraine pas de notifications via les webhooks que j'ai mis en place. Pour une meilleure compréhension de mon travail il est donc préférable de visualisé mon repository initial.
+
+## Introduction
+
 This repository is a student project on devops and CI/CD. It is a CRUD allowing to create teams.
 In that project i have create 5 stage with travis (build, test, lint, after and deploy).
 With after i initialize webhook to have notification when build successfully in notifications discord channel (cf : discord part).
