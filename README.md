@@ -1,7 +1,8 @@
 # Devops A4 IWM Victor
 This repository is a student project on devops and CI/CD. It is a CRUD allowing to create teams.
-In that project i have create 4 stage with travis (build, test, after and deploy).
+In that project i have create 5 stage with travis (build, test, lint, after and deploy).
 With after i initialize webhook to have notification when build successfully in notifications discord channel (cf : discord part).
+Also when PR is initialize an enviroment of pr it's build.
 
 ## State
 
