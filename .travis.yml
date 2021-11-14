@@ -4,11 +4,6 @@ php:
   - '8.0'
 services:
   - mysql
-stages:
-  - build
-  - deploy
-  - test
-  - after
 jobs:
   include:
     - stage: build
@@ -59,3 +54,8 @@ jobs:
         - main
         - develop
         - preprod
+stages:
+  - build
+  - test
+  - after
+  - deploy
