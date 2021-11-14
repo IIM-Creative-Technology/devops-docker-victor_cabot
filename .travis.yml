@@ -20,6 +20,7 @@ jobs:
         - php artisan migrate
     - stage: test
       script:
+        - composer require phpunit/phpunit
         - ./vendor/bin/phpunit
     - stage: after
       after_success:
