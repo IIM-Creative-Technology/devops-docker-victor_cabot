@@ -19,9 +19,13 @@ jobs:
         - npm install
         - php artisan migrate
         - composer dump-autoload
+      cache:
+        directories:
+          - node_modules
+          - vendor
     - stage: test
       script:
-        - ./vendor/bin/phpunit
+        - php artisan test
     - stage: after
       after_success:
         - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
