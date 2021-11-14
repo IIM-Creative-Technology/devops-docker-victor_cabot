@@ -33,10 +33,12 @@ jobs:
           - vendor
     - stage: after
       after_success:
+        - composer dump-autoload
         - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
         - chmod +x send.sh
         - ./send.sh success $WEBHOOK_URL
       after_failure:
+        - composer dump-autoload
         - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
         - chmod +x send.sh
         - ./send.sh failure $WEBHOOK_URL
