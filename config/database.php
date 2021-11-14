@@ -2,6 +2,11 @@
 
 use Illuminate\Support\Str;
 
+$isReview = getenv('APP_REVIEW');
+if ($isReview){
+    $mysql = parse_url(getenv("JAWSDB_MARIA_URL"));
+}
+
 return [
 
     /*
@@ -46,11 +51,11 @@ return [
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
+            'host' => $isReview? $mysql["host"] : env('DB_HOST', '127.0.0.1'),
+            'port' => $isReview? $mysql["port"] : env('DB_PORT', '3306'),
+            'database' => $isReview? substr($mysql["path"], 1) : env('DB_DATABASE', 'forge'),
+            'username' => $isReview? $mysql["user"] : env('DB_USERNAME', 'forge'),
+            'password' => $isReview? $mysql["pass"] : env('DB_PASSWORD', ''),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
