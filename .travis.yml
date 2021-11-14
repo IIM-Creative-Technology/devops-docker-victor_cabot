@@ -17,6 +17,7 @@ jobs:
       script:
         - composer install --prefer-source --no-interaction --dev
         - npm install
+        - php artisan key:generate
         - php artisan migrate
         - php artisan test
       cache:
