@@ -45,3 +45,37 @@ With that discord link you can see notification like build / commit / pr etc ...
 https://discord.gg/YPg57umSDC
 
 ![Discord Illustration](https://i.ibb.co/hZR6cps/Capture-d-e-cran-2021-11-12-a-11-09-13.png)
+
+## Configuration
+
+### CI / CD
+    
+This section was added on November 15
+
+This project is deployed on Heroku and I use Travis for the CI. 
+
+The environment variables are to be specified in the .env.travis (for a simpler use it is preconfigured in this project). The variables to configure in your .env.travis are :
+
+| Variable | Content |
+| ------ | ----------- |
+| HEROKU_APP_PROD   | app_name_of_your_prod |
+| HEROKU_APP_PREPROD | app_name_of_your_preprod |
+| HEROKU_APP_DEV    | app_name_of_your_development |
+
+On the Heroku side, after having created a pipeline containing your 3 environments (prod, preprod, develop) you must add these variables in each of your environments :
+
+| Variable | Content |
+| ------ | ----------- |
+| APP_DEBUG   | true |
+| APP_ENV | development/prod |
+| APP_KEY    | key_of_your_app_laravel (php artisan generate:key) |
+| APP_NAME   | your_app_name |
+| APP_URL | url_of_deployment |
+| DATABASE_URL    | url_of_your_db (get the url of JAWSDB_MARIA_URL) |
+| JAWSDB_MARIA_URL    | url_generated_after_adding_the_jawsdb_maria_addon* |
+| MIX_APP_URL   | deployment_url (mix allows Laravel to access the environment variable) |
+| NODE_ENV | development |
+| SESSION_DRIVER    | cookie |
+| SESSION_LIFETIME    | 120 |
+
+* When you create your environments on Heroku you must also add the addon JawsDB Maria. When you have added a configuration variable will automatically create containing the url to set in DATABASE_URL
